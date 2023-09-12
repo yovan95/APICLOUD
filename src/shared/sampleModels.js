@@ -1,6 +1,27 @@
 ////SOLO PARA PRUEBAS DE QUE EL USUARIO ESCOJA UNA PALABRA SABER QUE ENVIAR
 
 
+//ENVIO PLANTILLA PRIMERA VES
+
+function SampleTemplate(number){
+    const data = JSON.stringify(
+        {
+            "messaging_product": "whatsapp",
+            "to": number,
+            "type": "template",
+            "template": {
+                "name": "hello_world",
+                "language": {
+                    "code": "en_US"
+                }
+            }
+        }
+    );
+    return data;
+}
+
+
+
 //// ENVIO PARA TIPO TEXTO///////
 
 function SampleText(textResponse, number) {
@@ -69,6 +90,6 @@ function SampleDocument( number) {
 }
 
 module.exports = {SampleText, 
-    SampleImagen, SampleAudio, SampleVideo, SampleDocument
+    SampleImagen, SampleAudio, SampleVideo, SampleDocument, SampleTemplate
 
 }

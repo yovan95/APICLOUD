@@ -25,6 +25,9 @@ function SendMessageWhatsApp(data) {
     req.write(data);
     req.end()
 }
+
+
 module.exports = {
     SendMessageWhatsApp
 }
+
