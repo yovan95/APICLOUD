@@ -1,7 +1,7 @@
 const fs = require('fs');
 const myConsole = new console.Console(fs.createWriteStream("./log.txt"));
-//const whatsappService = require("../services/whatsappService");
-//const samples = require("../shared/sampleModels");
+const whatsappService = require("../services/whatsappService");
+const samples = require("../shared/sampleModels");
 const processMessage = require("../shared/processMessage");
 
 /// VERIFICAR TOKEN Y OBTENER ACCESO AL WEBHOOK DE API
@@ -31,6 +31,7 @@ const ReceivedMessage = (req, res) => {
         var changes = (entry["changes"])[0];
         var value = changes["value"];
         var messageObject = value["messages"];
+        var mensaje = "hola usuario como estas?";
 
         if (typeof messageObject != "undefined") {
 
@@ -38,18 +39,22 @@ const ReceivedMessage = (req, res) => {
             var number = messages["from"];
             var text = GetTextUser(messages);
 
-            if(text != ""){                            
+           /*  if(text != ""){                            
 
                 processMessage.Process(text, number)
-            }
-                /* if(text == "text"){
-                   var data = samples.SampleText("Hola usuario", number);
+            } */
+
+
+
+               if(text != ""){
+                   var data = samples.SampleText(mensaje, number);
                     whatsappService.SendMessageWhatsApp(data);
                 }
-         */
+        
 
 
             myConsole.log(text);
+           
             myConsole.log(number);
 
         }
@@ -73,21 +78,9 @@ function GetTextUser(messages) {
         text = (messages["text"])["body"];
 
 
-    } else if (typeMessage == "interactive") {
-        var interactiveObject = messages["interactive"];
-        var typeInteractive = interactiveObject["type"];
-
-
-        if (typeInteractive == "button_reply") {
-            text = (interactiveObject["button_reply"])["title"];
-
-        } else if (typeInteractive == "list_reply") {
-            text = (interactiveObject["list_reply"])["title"];
-
-        } else {
-            myConsole.log("sin mensaje");
-        }
-
+    } else if (typeMessage == "image") {
+        image = (messages["image"])["link"];
+       
     } else {
         myConsole.log("sin mensaje");
     }
